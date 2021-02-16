@@ -138,7 +138,11 @@ class Game extends React.Component {
         if (lines) {
             status = 'Winner: ' + current.squares[lines[0]];
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            if (this.state.stepNumber === 9) {
+                status = 'Draw the game';
+            } else {
+                status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            }
         }
 
         let orderBy;

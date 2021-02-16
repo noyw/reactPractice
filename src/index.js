@@ -25,7 +25,7 @@ class Board extends React.Component {
     renderColumns(row) {
         const cols = [];
 
-        for (let col = 1; col < 4; col++) {
+        for (let col = 0; col < 3; col++) {
             cols.push(
                 this.renderSquare((row * 3) + col)
             );

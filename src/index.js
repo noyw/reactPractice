@@ -5,7 +5,7 @@ import './index.css';
 function Square(props) {
     return (
         <button className="square" onClick={props.onClick} style={{ background: props.colorCode }}>
-            { props.value}
+            {props.value}
         </button >
     );
 }

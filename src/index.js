@@ -12,7 +12,6 @@ function Square(props) {
 
 class Board extends React.Component {
     renderSquare(index) {
-
         return (
             <Square
                 key={index}
@@ -62,6 +61,7 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            orderIsAscending: true
         };
     }
 
@@ -97,18 +97,27 @@ class Game extends React.Component {
         });
     }
 
+    orderBy() {
+        this.setState({
+            orderIsAscending: !this.state.orderIsAscending,
+        });
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
-            const desc = move ? 'Go to move #' + move + ' (' + step.col + ', ' + step.row + ')' : 'Go to game start';
-            const style = (move === this.state.stepNumber) ? "bold" : "normal";
+            const moveAftOrderby = this.state.orderIsAscending ? move : (history.length - 1 - move);
+            const stepAftOrderby = this.state.orderIsAscending ? step : (history[history.length - 1 - move]);
+
+            const desc = moveAftOrderby ? 'Go to move #' + moveAftOrderby + ' (' + stepAftOrderby.col + ', ' + stepAftOrderby.row + ')' : 'Go to game start';
+            const style = (moveAftOrderby === this.state.stepNumber) ? "bold" : "normal";
 
             return (
-                <li key={move}>
-                    <button style={{ fontWeight: style }} onClick={() => this.jumpTo(move)}>
+                <li key={moveAftOrderby}>
+                    <button style={{ fontWeight: style }} onClick={() => this.jumpTo(moveAftOrderby)}>
                         {desc}
                     </button>
                 </li>
@@ -124,6 +133,14 @@ class Game extends React.Component {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
 
+        let orderBy;
+
+        if (this.state.orderIsAscending) {
+            orderBy = 'orderby desc'
+        } else {
+            orderBy = 'orderby asc'
+        }
+
         return (
             <div className="game">
                 <div className="game-board">
@@ -134,6 +151,9 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <button onClick={() => this.orderBy()}>
+                        {orderBy}
+                    </button>
                     <ol>{moves}</ol>
                 </div>
             </div>

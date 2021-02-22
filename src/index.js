@@ -4,7 +4,7 @@ import './index.css';
 
 function Square(props) {
     return (
-        <button className="square" onClick={props.onClick} style={{ background: props.colorCode }}>
+        <button className={'square ' + props.style} onClick={props.onClick}>
             {props.value}
         </button >
     );
@@ -12,18 +12,16 @@ function Square(props) {
 
 class Board extends React.Component {
     renderSquare(index) {
-        let colorCode;
+        let style;
 
         if (this.props.lines) {
-            colorCode = this.props.lines.includes(index) ? "#FFEB58" : "#FFFFFF";
-        } else {
-            colorCode = "#FFFFFF";
+            style = this.props.lines.includes(index) ? " highlight-yellow" : null;
         }
 
         return (
             <Square
                 key={index}
-                colorCode={colorCode}
+                style={style}
                 value={this.props.squares[index]}
                 onClick={() => this.props.onClick(index)}
             />

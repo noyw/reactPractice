@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 import './index.css';
 
 function Square(props) {
@@ -124,9 +126,9 @@ class Game extends React.Component {
 
             return (
                 <li key={moveAftOrderby}>
-                    <button style={{ fontWeight: style }} onClick={() => this.jumpTo(moveAftOrderby)}>
+                    <Button variant='outline-primary' size='sm' style={{ fontWeight: style }} onClick={() => this.jumpTo(moveAftOrderby)}>
                         {desc}
-                    </button>
+                    </Button>
                 </li>
             );
         })
@@ -162,12 +164,12 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <button onClick={() => this.orderBy()}>
+                    <Button variant='outline-primary' size='sm' onClick={() => this.orderBy()}>
                         {orderBy}
-                    </button>
+                    </Button>
                     <ol>{moves}</ol>
                 </div>
-            </div>
+            </div >
         );
     }
 }
